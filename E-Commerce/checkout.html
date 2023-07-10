@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Checkout - My Clothing Store</title>
+  <style>
+    /* CSS styling for the page */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    .checkout-item {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .checkout-item img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .checkout-item h2 {
+      margin: 0;
+    }
+
+    .checkout-item p {
+      margin: 0;
+    }
+
+    .checkout-total {
+      text-align: right;
+      font-weight: bold;
+    }
+
+    .checkout-button {
+      display: block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      text-decoration: none;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to My Clothing Store</h1>
+    <p>Checkout</p>
+  </header>
+
+  <div class="container">
+    <h2>Order Summary</h2>
+
+    <div class="checkout-items">
+      <!-- Insert selected items from the cart dynamically using JavaScript -->
+    </div>
+
+    <div class="checkout-total">
+      <p>Total: $<span id="checkout-total-amount"></span></p>
+    </div>
+
+    <a href="#" class="checkout-button">Complete Purchase</a>
+  </div>
+
+  <script>
+    // JavaScript code to display selected items and calculate the total
+    document.addEventListener('DOMContentLoaded', function() {
+      const checkoutItemsContainer = document.querySelector('.checkout-items');
+      const checkoutTotalAmount = document.querySelector('#checkout-total-amount');
+
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+      if (cartItems.length === 0) {
+        const noItemsMessage = document.createElement('p');
+        noItemsMessage.textContent = 'No items in the cart.';
+        checkoutItemsContainer.appendChild(noItemsMessage);
+      } else {
+        cartItems.forEach(function(item) {
+          const checkoutItem = document.createElement('div');
+          checkoutItem.classList.add('checkout-item');
+
+          const image = document.createElement('img');
+          image.src = item.image;
+          image.alt = item.name;
+          checkoutItem.appendChild(image);
+
+          const productName = document.createElement('h2');
+          productName.textContent = item.name;
+          checkoutItem.appendChild(productName);
+
+          const productPrice = document.createElement('p');
+          productPrice.textContent = 'Price: $' + item.price;
+          checkoutItem.appendChild(productPrice);
+
+          checkoutItemsContainer.appendChild(checkoutItem);
+        });
+
+        const total = cartItems.reduce(function(acc, item) {
+          return acc + parseFloat(item.price);
+        }, 0);
+
+        checkoutTotalAmount.textContent = total.toFixed(2);
+      }
+    });
+  </script>
+</body>
+</html>

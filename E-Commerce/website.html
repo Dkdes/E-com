@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <title>My Clothing Store</title>
+  <style>
+    /* CSS styling for the page */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: grey;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    .sidebar {
+      float: left;
+      width: 200px;
+      background-color: #f1f1f1;
+      padding: 20px;
+    }
+
+    .sidebar a {
+      display: block;
+      margin-bottom: 10px;
+      color: #333;
+      text-decoration: none;
+    }
+
+    .products {
+      margin-left: 220px;
+    }
+    
+    .image img {
+      height: 100%;
+      width: 100%;
+    }
+
+    .product {
+      display: inline-block;
+      width: 200px;
+      margin: 0 10px 20px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+    }
+
+    .product h2 {
+      margin: 0;
+    }
+
+    .product p {
+      margin: 10px 0;
+    }
+
+    .cart-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+    }
+
+    .cart-item-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      background-color: #333;
+      color: #fff;
+      font-size: 12px;
+      border-radius: 50%;
+    }
+
+    .cart-dropdown {
+      position: absolute;
+      top: 10px;
+      right: 5px;
+      display: none;
+      border-radius: 1px;
+    }
+
+    .cart-dropdown .cart-dropdown-container {
+      position: relative;
+    }
+
+    .cart-dropdown .cart-dropdown-content {
+      display: none;
+      position: relative;
+      top: 100%;
+      right: 0;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 10px;
+      min-width: 200px;
+      z-index: 1;
+    }
+
+    .cart-dropdown.show .cart-dropdown-content {
+      display: block;
+    }
+    
+    .cart-dropdown.show .checkout-button-sticky {
+      display: block;
+      position: relative;
+      padding: 10px 20px;
+      right: 0px;
+      background-color: #333;
+      color: #fff;
+      text-decoration: none;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Clothing Store</h1>
+    <p>Shop for the latest trends</p>
+  </header>
+
+  <div class="container">
+    <div class="sidebar">
+      <h2>Categories</h2>
+      <a href="#all">All</a>
+      <a href="#tops">Tops</a>
+      <a href="#bottoms">Bottoms</a>
+    </div>
+
+    <div class="products">
+      <div class="product tops">
+        <h2>T-Shirt</h2>
+        <div class="image">
+          <img src="b.png">
+        </div>
+        <p>Price: $15.99</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+
+      <div class="product tops">
+        <h2>Blouse</h2>
+        <div class="image">
+          <img src="b.png">
+        </div>
+        <p>Price: $15.99</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+
+      <div class="product tops">
+        <h2>Longsleeves</h2>
+        <div class="image">
+          <img src="b.png">
+        </div>
+        <p>Price: $15.99</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+
+      <div class="product tops">
+        <h2>Polo</h2>
+        <div class="image">
+          <img src="b.png">
+        </div>
+        <p>Price: $15.99</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+
+      <div class="product tops">
+        <h2>Jacket</h2>
+        <div class="image">
+          <img src="b.png">
+        </div>
+        <p>Price: $15.99</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+
+      <div class="product bottoms">
+        <h2>Jeans</h2>
+        <p>Price: $29.99</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+
+      <div class="product bottoms">
+        <h2>Skirt</h2>
+        <p>Price: $15.99</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+
+      <div class="product bottoms">
+        <h2>Short</h2>
+        <p>Price: $19.99</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+
+    </div>
+
+    <div class="cart-icon">
+      <i class="fa fa-shopping-cart"></i>
+      <span class="cart-item-count">0</span>
+      <div class="cart-dropdown">
+        <div class="cart-dropdown-container">
+          <div class="cart-dropdown-content"></div>
+          <a href="checkout.html" class="checkout-button-sticky" onclick="passItems()">Checkout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sidebarLinks = document.querySelectorAll('.sidebar a');
+    const products = document.querySelectorAll('.product');
+    const cartIcon = document.querySelector('.cart-icon');
+    const cartItemCount = document.querySelector('.cart-item-count');
+    const cartDropdown = document.querySelector('.cart-dropdown');
+    const cartDropdownContent = document.querySelector('.cart-dropdown-content');
+    const cartItems = [];
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+      sidebarLinks.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+          event.preventDefault();
+          const category = link.getAttribute('href').substring(1); // Extract the category name from the href attribute
+          filterProducts(category);
+        });
+      });
+
+      products.forEach(function(product) {
+        const addToCartButton = product.querySelector('.add-to-cart');
+
+        addToCartButton.addEventListener('click', function() {
+          const productName = product.querySelector('h2').textContent;
+          const productPrice = product.querySelector('p').textContent;
+          addToCart(productName, productPrice);
+        });
+      });
+
+      function filterProducts(category) {
+        products.forEach(function(product) {
+          if (category === 'all' || product.classList.contains(category)) {
+            product.style.display = 'inline-block'; // Show products that match the category or show all products if category is "all"
+          } else {
+            product.style.display = 'none'; // Hide products that don't match the category
+          }
+        });
+      }
+
+      function addToCart(name, price) {
+        const item = { name: name, price: price };
+        cartItems.push(item);
+        updateCart();
+      }
+
+      function updateCart() {
+        const itemCount = cartItems.length;
+        cartItemCount.textContent = itemCount;
+
+        cartDropdownContent.innerHTML = ''; // Clear previous cart items
+
+        if (itemCount === 0) {
+          cartDropdownContent.textContent = 'Your cart is empty.';
+        } else {
+          cartItems.forEach(function(item) {
+            const cartItem = document.createElement('div');
+            cartItem.textContent = item.name + ' - ' + item.price;
+            cartDropdownContent.appendChild(cartItem);
+          });
+        }
+      }
+
+      // Toggle the visibility of the cart dropdown menu
+      cartIcon.addEventListener('click', function() {
+        cartDropdown.classList.toggle('show');
+      });
+    });
+
+    function passItems() {
+      sessionStorage.setItem('ItemArray', JSON.stringify(cartItems));
+      window.location.href = 'checkout.html';
+    }
+  </script>
+</body>
+</html>
